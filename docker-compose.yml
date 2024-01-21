@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:1.25.3
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "8181:80"
+    depends_on:
+      - app
+    container_name: app_nginx
+
+  app:
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - db
+    container_name: app
+
+  db:
+    image: mariadb:11.2.2
+    restart: always
+    volumes:
+        - ./tmp/db:/var/lib/mysql
+    environment:
+        MARIADB_DATABASE: laravel_docker
+        MARIADB_ROOT_PASSWORD: root
+    ports:
+        - "8282:3306"
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    container_name: app_db

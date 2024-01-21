@@ -1,0 +1,29 @@
+.input-counter input[type='number']::-webkit-inner-spin-button,
+.input-counter input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input-counter input{
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #C9C9C9;
+    border-bottom: 1px solid #C9C9C9;
+}
+.input-counter input:focus {
+    outline: none !important;
+}
+.input-counter button:focus {
+    outline: none !important;
+}
+.input-counter button:hover{
+    border-color: #13100E;
+}
+.input-counter button{
+    border-color: #C9C9C9;
+}
+.add-to-cart button{
+    border-color: #13100E;
+}
+.add-to-cart button:hover{
+    background-color: #13100E;
+}
