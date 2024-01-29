@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @stack('additional_meta')
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Laravel Shop - @yield( 'title', 'Page')</title>
 
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 

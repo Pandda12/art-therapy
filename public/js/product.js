@@ -24,8 +24,7 @@ $(document).ready(function () {
             success: function (response) {
                 alert('success');
                 console.log(response);
-                // alertify.set('notifier','position','top-right');
-                // alertify.success(response.status);
+
             },
         });
     });
