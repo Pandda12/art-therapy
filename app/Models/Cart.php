@@ -15,7 +15,14 @@ class Cart extends Model
         $cookie_data = stripslashes(Cookie::get('shopping_cart'));
         $data = json_decode($cookie_data, true);
 
+        if ( empty( $data ) )
+            return array();
+
         $cart = array();
+        $products = array();
+
+        $quantity = 0;
+        $product_total = 0;
 
         foreach ( $data as $key => $value ) {
             $product = Product::find( $value['product_id'] );
@@ -25,7 +32,7 @@ class Cart extends Model
                 continue;
             }
 
-            $cart[] = array(
+            $products[] = array(
                 'product_id' => $product->id,
                 'title' => $product->title,
                 'quantity' => $value['quantity'],
@@ -33,7 +40,17 @@ class Cart extends Model
                 'image' => $product->getImage()
             );
 
+            $product_total += $product->price;
+            $quantity++;
+
         }
+
+        //$cart += array_fill_keys( array('products'), $products );
+
+        $cart['products'] = $products;
+
+        $cart['quantity'] = $quantity;
+        $cart['product_total'] = $product_total;
 
         return $cart;
     }
