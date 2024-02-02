@@ -1,4 +1,25 @@
 $(document).ready(function () {
+
+    function minus(id){
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (data) {
+                // Create a temporary element to hold the HTML content
+                var tempElement = $("<div>").html(data);
+
+                // Extract the HTML content from the <body> tag
+                var bodyHtml = tempElement.find("body").html();
+
+                // Log or use the HTML content as needed
+                console.log(bodyHtml);
+            },
+            error: function (error) {
+                console.error("Error fetching HTML:", error);
+            }
+        });
+    }
+
     $('.product_minus').click(function (e) {
         e.preventDefault();
 
@@ -45,5 +66,24 @@ $(document).ready(function () {
 
         console.log('Delete: ' + id);
 
+    });
+    $("#update_cart").click(function () {
+        $.ajax({
+            url: '/cart/get-cart',
+            method: "GET",
+            success: function (data) {
+                // Create a temporary element to hold the HTML content
+                const tempElement = $('#cart_reload').html(data);
+
+                // Extract the HTML content from the <body> tag
+                const bodyHtml = tempElement.find("body").html();
+
+                // Log or use the HTML content as needed
+                console.log(bodyHtml);
+            },
+            error: function (error) {
+                console.error("Error fetching HTML:", error);
+            }
+        });
     });
 });

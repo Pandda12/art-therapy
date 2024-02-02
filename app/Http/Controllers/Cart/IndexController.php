@@ -14,6 +14,6 @@ class IndexController extends Controller
 
         $cart = Cart::getCart();
 
-        return view('guest.cart', compact('cart'));
+        return view('cart.index', compact('cart'));
     }
 }
