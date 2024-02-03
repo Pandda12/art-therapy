@@ -12,6 +12,7 @@
         @stack('css')
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
     </head>
     <body class="min-h-svh">
     <x-guest.header/>

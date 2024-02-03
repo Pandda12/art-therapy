@@ -1,3 +1,6 @@
+@push('additional_meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush
 @extends('layouts.guest')
 @section('title', 'Cart')
 @section('content')
@@ -78,7 +81,9 @@
 {{ var_dump($cart) }}
     </pre>
     <script>
+        $(document).ready(function () {
 
+        });
     </script>
 @endsection
 @push('script')

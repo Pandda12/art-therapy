@@ -33,6 +33,7 @@ Route::post('/add-to-cart', \App\Http\Controllers\Cart\StoreController::class)->
 Route::get('/cart', \App\Http\Controllers\Cart\IndexController::class)->name('cart.index');
 Route::get('/cart/clear-cart', \App\Http\Controllers\Cart\ClearController::class)->name('cart.clear');
 Route::get('/cart/get-cart', \App\Http\Controllers\Cart\ShowController::class)->name('cart.show');
+Route::patch('/cart/update-cart', \App\Http\Controllers\Cart\UpdateController::class)->name('cart.update');
 
 
 Route::get('/dashboard', function () {
