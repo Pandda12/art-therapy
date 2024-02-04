@@ -40,7 +40,7 @@ class Cart extends Model
                 'image' => $product->getImage()
             );
 
-            $product_total += $product->price;
+            $product_total += $product->price * $value['quantity'];
             $quantity++;
 
         }

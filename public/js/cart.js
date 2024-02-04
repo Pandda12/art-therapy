@@ -1,4 +1,4 @@
-window.addEventListener('load', function () {
+
 
     function updateCart() {
         $.ajax({
@@ -20,7 +20,7 @@ window.addEventListener('load', function () {
         });
     }
 
-    function updateQty(id, action, event) {
+    function updateQty(id, action) {
         event.preventDefault();
         const input = $('input#' + id);
         let qty;
@@ -33,7 +33,7 @@ window.addEventListener('load', function () {
 
         const max_qty = $(input).data('quantity');
 
-        if (qty < max_qty) {
+        if (qty <= max_qty) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -49,7 +49,7 @@ window.addEventListener('load', function () {
                 },
                 success: function (response) {
                     if (response.status === 'success') {
-                        alert('Quantity updated');
+                        // alert('Quantity updated');
                         updateCart();
                     } else if (response.status === 'max-qty') {
                         alert('Max quantity');
@@ -68,6 +68,6 @@ window.addEventListener('load', function () {
     $("#update_cart").click(function () {
         updateCart()
     });
-
+window.addEventListener('load', function () {
     updateCart();
 })

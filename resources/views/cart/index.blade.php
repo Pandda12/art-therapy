@@ -12,7 +12,7 @@
     <h1 class="shop-heading mt-16 mb-20 text-4xl uppercase">Cart</h1>
 
     @if( !empty( $cart ) )
-        <form action="" method="post">
+        <form action="{{ route('checkout.store') }}" method="post">
             @csrf
             <div class="flex flex-col gap-24">
                 <div id="cart_reload">
@@ -32,7 +32,7 @@
                                     Pickup
                                 </div>
                                 <div>
-                                    address
+                                    Minsk, Karl Liebknecht street, 130
                                 </div>
                             </div>
                         </div>
@@ -56,16 +56,34 @@
                         <div class="mb-14 text-4xl uppercase">Your details</div>
                         <div class="flex flex-col">
                             <div class="flex flex-col">
-                                <label for="first-name">First name</label>
-                                <input type="text" name="first_name" id="first-name" />
+                                <label for="first-name" class="block mb-2 text-sm font-medium">First name</label>
+                                <input
+                                    type="text"
+                                    name="first_name"
+                                    id="first-name"
+                                    class="bg-transparent border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                />
                             </div>
                             <div class="flex flex-col">
-                                <label for="second-name">Second name</label>
-                                <input type="text" name="second_name" id="second-name" />
+                                <label for="second-name" class="block mb-2 text-sm font-medium">Second name</label>
+                                <input
+                                    type="text"
+                                    name="second_name"
+                                    id="second-name"
+                                    class="bg-transparent border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                />
                             </div>
                             <div class="flex flex-col">
-                                <label for="phone">Phone</label>
-                                <input type="tel" name="phone" id="phone" />
+                                <label for="phone" class="block mb-2 text-sm font-medium">Phone</label>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    id="phone"
+                                    class="bg-transparent border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                />
                             </div>
                         </div>
                     </div>

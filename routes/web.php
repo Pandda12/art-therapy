@@ -35,6 +35,9 @@ Route::get('/cart/clear-cart', \App\Http\Controllers\Cart\ClearController::class
 Route::get('/cart/get-cart', \App\Http\Controllers\Cart\ShowController::class)->name('cart.show');
 Route::patch('/cart/update-cart', \App\Http\Controllers\Cart\UpdateController::class)->name('cart.update');
 
+Route::get('/checkout/{order}', \App\Http\Controllers\Checkout\IndexController::class)->name('checkout.index');
+Route::post('/checkout', \App\Http\Controllers\Checkout\StoreController::class)->name('checkout.store');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

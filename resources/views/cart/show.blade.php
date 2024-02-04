@@ -46,15 +46,15 @@
             @endforeach
         </div>
         <div class="flex flex-col bg-purple-light rounded-2xl py-7 px-6 w-1/4">
-            <div class="text-3xl">Total amount: <span id="total">40$</span></div>
-            <div class="text-lg">Products: <span class="product_quantity">3</span></div>
-            <div class="flex items-center">
+            <div class="text-3xl mb-7">Total amount: <span id="total">{{ $cart['product_total'] }}$</span></div>
+            <div class="text-lg mb-14">Products: <span class="product_quantity">{{ $cart['quantity'] }}</span></div>
+            <div class="flex items-center mb-7">
                 <input id="privacy-policy" type="checkbox" required/>
                 <label for="privacy-policy">I agree with the terms of the Public Offer and the return policy</label>
             </div>
             <div>
                 <input
-                    class="py-2.5 px-16 rounded-3xl bg-art-black text-white"
+                    class="py-2.5 px-16 rounded-3xl bg-art-black text-white w-full hover:cursor-pointer hover:bg-neutral-700"
                     type="submit"
                     value="Make an order">
             </div>
