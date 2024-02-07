@@ -17,7 +17,7 @@
     <body class="min-h-svh">
     <x-guest.header/>
     <main class="">
-        <div id="primary" class="container 2xl mx-auto flex flex-col pt-16">
+        <div id="primary" class="container 2xl mx-auto flex flex-col pt-16 h-full">
             @yield('content')
         </div>
     </main>

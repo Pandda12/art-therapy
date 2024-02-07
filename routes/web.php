@@ -39,9 +39,9 @@ Route::get('/checkout/{order}', \App\Http\Controllers\Checkout\IndexController::
 Route::post('/checkout', \App\Http\Controllers\Checkout\StoreController::class)->name('checkout.store');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,8 +51,8 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::group(['prefix' => 'admin'], function (){
-    Route::get('/', \App\Http\Controllers\Admin\IndexController::class);
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
+    Route::get('/', \App\Http\Controllers\Admin\IndexController::class)->name('admin');
 
     Route::group(['prefix' => 'categories'], function (){
         Route::get('/', \App\Http\Controllers\Category\Admin\IndexController::class)->name('admin.category.index');
@@ -83,9 +83,7 @@ Route::group(['prefix' => 'admin'], function (){
         Route::patch('/{product}', \App\Http\Controllers\Product\Admin\UpdateController::class)->name('product.update');
         Route::delete('/{product}', \App\Http\Controllers\Product\Admin\DeleteController::class)->name('product.delete');
     });
-});
-
-
+})->middleware(['auth', 'verified']);
 
 
 require __DIR__.'/auth.php';

@@ -7,4 +7,5 @@ header{
 }
 main{
     background-color: #FCFCF8;
+    min-height: calc( 100svh - 106px );
 }

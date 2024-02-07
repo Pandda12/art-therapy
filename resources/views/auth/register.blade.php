@@ -1,5 +1,11 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+@extends('layouts.guest')
+@section('content')
+    <div class="flex justify-center items-center h-full">
+    <form
+        method="POST"
+        action="{{ route('register') }}"
+        class="px-5 py-9 bg-purple-light rounded-3xl w-1/3"
+    >
         @csrf
 
         <!-- Name -->
@@ -49,4 +55,5 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+    </div>
+@endsection
