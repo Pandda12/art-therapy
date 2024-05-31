@@ -10,48 +10,56 @@ class Cart extends Model
 {
     use HasFactory;
 
-    public static function getCart(): array
+    public static function addToCart(int $product_id, int $quantity)
     {
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $data = json_decode($cookie_data, true);
+//
+    }
 
-        if ( empty( $data ) )
-            return array();
+    public static function getCart( array $cart ): array
+    {
 
-        $cart = array();
-        $products = array();
+        $data = [];
+        $cartTotal = 0;
+        $productCount = 0;
 
-        $quantity = 0;
-        $product_total = 0;
+        foreach ($cart as $key => $value) {
 
-        foreach ( $data as $key => $value ) {
-            $product = Product::find( $value['product_id'] );
+            $product = Product::where([
+                ['id', $value['id']],
+                ['is_show', true]
+            ])->first(); // or ->get() if you expect multiple records
 
-            if ( !$product ) {
-                unset($data[$key]);
-                continue;
+//            var_dump($product);
+
+            if (!$product) {
+                $data['delete'] = $key;
+            } else {
+
+                $quantity = min($value['quantity'], $product->quantity);
+
+                $data[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'quantity' => $quantity,
+                    'max_quantity' => $product->quantity,
+                    'image' => $product->getImage()
+                ];
+
+                $cartTotal += $product->price * $quantity;
+                $productCount += $quantity;
             }
-
-            $products[] = array(
-                'product_id' => $product->id,
-                'title' => $product->title,
-                'quantity' => $value['quantity'],
-                'price' => $product->price,
-                'image' => $product->getImage()
-            );
-
-            $product_total += $product->price * $value['quantity'];
-            $quantity++;
 
         }
 
-        //$cart += array_fill_keys( array('products'), $products );
+        $cartData = [
+            'products' => $data,
+            'product_count' => $productCount,
+            'total' => $cartTotal,
+        ];
 
-        $cart['products'] = $products;
+//        var_dump($cartData);
 
-        $cart['quantity'] = $quantity;
-        $cart['product_total'] = $product_total;
-
-        return $cart;
+        return $cartData;
     }
 }

@@ -1,0 +1,1 @@
+import{_ as e}from"./AuthenticatedLayout-BeDqA725.js";import{o as t,c as a,w as o,b as s}from"./app-DzJWFajY.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const _=s("h2",null,"Admin",-1),l={__name:"Index",setup(r){return(c,n)=>(t(),a(e,{"page-title":"Панель управления"},{default:o(()=>[_]),_:1}))}};export{l as default};

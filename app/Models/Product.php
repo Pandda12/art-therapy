@@ -9,16 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
     protected $guarded = false;
-
-    public function statuses(): array
-    {
-        return array(
-            0 => 'Draft',
-            1 => 'Publish'
-        );
-    }
 
     public function brand()
     {
@@ -33,12 +24,30 @@ class Product extends Model
     public function getImage(): string
     {
         if ( is_null($this->image) )
-            return asset('/images/products/placeholder.png' );
+            return asset('/images/products/art-therapy-placeholder.png' );
 
         if ( !file_exists( public_path('images/products/' . $this->image) ) )
-            return asset('/images/products/placeholder.png' );
+            return asset('/images/products/art-therapy-placeholder.png' );
 
         return asset('/images/products/' . $this->image );
     }
 
+    public static function productSearch( string $search ): array
+    {
+        $products = [];
+
+        $data = Product::where('name', 'like', '%' . $search . '%')->get();
+
+        foreach( $data as $item ){
+            $products[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'url' => route('product.show', $item->slug),
+                'image' => $item->getImage(),
+            ];
+        }
+
+        return $products;
+    }
 }

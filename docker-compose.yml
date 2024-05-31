@@ -1,6 +1,22 @@
-version: '3'
+version: '3.8'
 
 services:
+
+  app:
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
+    volumes:
+        - ./:/var/www
+        - ./.env:/var/www/.env
+    environment:
+        - APP_ENV=local
+    depends_on:
+        - db
+    container_name: app
+    networks:
+        - app-network
+
   nginx:
     image: nginx:1.25.3
     volumes:
@@ -11,26 +27,47 @@ services:
     depends_on:
       - app
     container_name: app_nginx
-
-  app:
-    build:
-        context: .
-        dockerfile: _docker/app/Dockerfile
-    volumes:
-      - ./:/var/www
-    depends_on:
-      - db
-    container_name: app
+    networks:
+        - app-network
 
   db:
+    platform: linux/x86_64
     image: mariadb:11.2.2
     restart: always
     volumes:
         - ./tmp/db:/var/lib/mysql
     environment:
-        MARIADB_DATABASE: laravel_docker
+        MARIADB_DATABASE: art_shop
         MARIADB_ROOT_PASSWORD: root
     ports:
         - "8282:3306"
     command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
     container_name: app_db
+    networks:
+        - app-network
+
+  node:
+      platform: linux/arm64/v8
+      build:
+          context: .
+          dockerfile: _docker/node/Dockerfile.node
+      image: my-laravel-node
+      container_name: my-laravel-node
+      ports:
+          - "3000:3000"
+      restart: unless-stopped
+      working_dir: /var/www
+      volumes:
+          - ./:/var/www
+          - /var/www/node_modules
+      command: npm run dev
+      networks:
+          - app-network
+
+networks:
+  app-network:
+      driver: bridge
+
+volumes:
+  dbdata:
+      driver: local

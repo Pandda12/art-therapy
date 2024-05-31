@@ -22,14 +22,15 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'description' => 'nullable|string',
+            'id' => 'required|integer|exists:products,id',
+            'name' => 'required|string',
             'price' => 'required|numeric',
             'quantity' => 'required|integer',
+            'brand_id' => 'nullable|exists:brands,id',
+            'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable',
-            'is_published' => 'nullable|integer',
-            'category_id' => 'nullable',
-            'brand_id' => 'nullable',
+            'is_show' => 'required|integer',
+            'description' => 'nullable|string'
         ];
     }
 }

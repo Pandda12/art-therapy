@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Brand\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Brand\IndexResource;
 use App\Models\Brand;
+use Inertia\Inertia;
 
 class IndexController extends Controller
 {
     public function __invoke()
     {
-        $brands = Brand::all();
-
-        return view('guest.brand.index', compact('brands'));
+        return Inertia::render('Guest/Brand/Index', [
+            'brands' => IndexResource::collection(Brand::orderBy('name')->get())->resolve()
+        ]);
     }
 }
